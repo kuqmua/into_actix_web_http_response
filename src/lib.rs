@@ -7,7 +7,7 @@ pub fn into_actix_web_http_response(input: proc_macro::TokenStream) -> proc_macr
     let gen = quote::quote! {
         impl From<#ident> for actix_web::HttpResponse {
             fn from(val: #ident) -> Self {
-                let mut actix_web_http_response: actix_web::HttpResponseBuilder = (&val).into();
+                let mut actix_web_http_response = actix_web::HttpResponseBuilder::new((&val).into());
                 actix_web_http_response.json(actix_web::web::Json(val))
             }
         }
